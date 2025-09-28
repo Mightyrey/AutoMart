@@ -1,0 +1,26 @@
+{
+  "name": "package.json",
+  "version": "1.0.0",
+  "description": "Node.js für AutoMart Projekt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mightyrey/AutoMart.git"
+  },
+  "author": "Tobias",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mightyrey/AutoMart/issues"
+  },
+  "homepage": "https://github.com/Mightyrey/AutoMart#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "mqtt": "^5.14.1"
+  }
+}
