@@ -324,7 +324,7 @@
     .btn-primary:hover,
     .btn-secondary:hover {
         transform: none;
-        background: initial;
+       /* background: initial;*/
     }
     
     .product-card:active {
@@ -441,4 +441,269 @@
             grid-template-columns: repeat(4, 1fr);
         }
     }
+}
+
+
+/* === FIX-PACK: Bottom-Nav horizontal + Products-Grid 3 Spalten === */
+
+/* Höhe der Bottom-Nav (passe an, falls sie bei dir sichtbar größer/kleiner ist) */
+:root {
+  --bottom-nav-h: 72px;
+}
+
+/* --- Bottom Navigation: immer horizontal, zentriert, scrollbar bei Engpass --- */
+.bottom-nav {
+  position: fixed !important;     /* überschreibt evtl. 'relative' */
+  z-index: 1000;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 1024px);       /* passt zur #app-Breite */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: .25rem;
+  padding: .5rem .75rem;
+  padding-bottom: max(.5rem, env(safe-area-inset-bottom)); /* iOS-Safe-Area */
+  background: var(--beige-light);
+  border-top: 1px solid rgba(0,0,0,.06);
+  flex-wrap: nowrap;               /* NICHT umbrechen */
+  overflow-x: auto;                /* horizontal scrollen falls viele Items */
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;          /* mobil: Icon über Label */
+  align-items: center;
+  gap: .25rem;
+  flex: 0 0 auto;                  /* nicht auf volle Breite wachsen */
+  white-space: nowrap;             /* Labels nicht umbrechen */
+}
+
+/* Ab Tablet: etwas großzügiger + Icon links vom Label (bleibt horizontal) */
+@media (min-width: 769px) {
+  .bottom-nav {
+    width: min(100%, 1024px);
+    padding: .75rem 1rem;
+  }
+  .nav-item {
+    flex-direction: row;           /* Icon links, Label rechts */
+    gap: .5rem;
+  }
+}
+
+/* Main-Content: Platz für die Bottom-Nav lassen */
+.main-content {
+  padding-bottom: calc(var(--bottom-nav-h) + 16px) !important;
+}
+
+/* #app: keine 2-Spalten-Struktur am Desktop (keine Sidebar) */
+@media (min-width: 1025px) {
+  #app {
+    max-width: 1024px;
+    margin: 0 auto;
+    display: block; /* entfernt grid-template-columns: 250px 1fr */
+    min-height: calc(100vh - 4rem);
+  }
+}
+
+/* --- Products Grid: stabil & konsolidiert (Ziel: 3 Spalten ab 769px+) --- */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* Standard mobil */
+  gap: 1rem;
+}
+
+/* Sehr kleine Phones */
+@media (max-width: 374px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: .75rem;
+  }
+}
+
+/* Ab Tablet/Desktop: IMMER 3 Spalten (dein Wunsch) */
+@media (min-width: 769px) {
+  .products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+/* Ab 1025px/1440px/1920px weiterhin 3 Spalten (nur Abstände etwas größer) */
+@media (min-width: 1025px) {
+  .products-grid { gap: 2rem; }
+}
+@media (min-width: 1440px) {
+  .products-grid { gap: 2rem; }
+}
+@media (min-width: 1920px) {
+  .products-grid { gap: 2rem; }
+}
+
+/* Verhindert, dass Grid-Kinder Spalten sprengen (lange Titel, Badges etc.) */
+.products-grid > * {
+  min-width: 0;
+}
+
+
+/* === COLOR FIX: Bottom-Nav mobil dunkel, ab Tablet/Desk hell === */
+
+/* Variablen + Fallbacks (passe sie bei Bedarf an) */
+:root {
+  --nav-bg-mobile: var(--primary-color, #1e293b);      /* dunkler/primärer Ton mobil */
+  --nav-fg-mobile: #ffffff;                            /* Text/Icon mobil */
+  --nav-fg-mobile-muted: rgba(255,255,255,.72);        /* inaktive Items mobil */
+
+  --nav-bg-desktop: var(--nav-bg, #1e1bdf);       /* Vany Blue ab 769px */
+  --nav-fg-desktop: var(--nav-fg, #1252ac);         /* dunkl blauerText ab 769px */
+}
+
+/* --- Mobile-first: dunkle Leiste mit weißer Typo --- */
+.bottom-nav {
+  background: var(--nav-bg-mobile);
+  color: var(--nav-fg-mobile);
+}
+
+/* Text/Icon erben ihre Farbe von .bottom-nav / .nav-item */
+.bottom-nav .nav-item,
+.bottom-nav .nav-item i,
+.bottom-nav .nav-item span {
+  color: var(--nav-fg-mobile);
+}
+
+/* SVGs ebenfalls einfärben */
+.bottom-nav .nav-item svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+/* Inaktive Items leicht abgeschwächt (mobil) */
+.bottom-nav .nav-item:not(.active) {
+  color: var(--nav-fg-mobile-muted);
+}
+
+/* Active-Indicator mobil: kleine Unterstreichung */
+.bottom-nav .nav-item.active {
+  color: var(--nav-fg-mobile);
+  position: relative;
+}
+.bottom-nav .nav-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 3px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+/* --- Ab Tablet/Desktop: zurück zum hellen Beige-Theme --- */
+@media (min-width: 769px) {
+  .bottom-nav {
+    background: var(--nav-bg-desktop);
+    color: var(--nav-fg-desktop);
+  }
+  .bottom-nav .nav-item,
+  .bottom-nav .nav-item i,
+  .bottom-nav .nav-item span,
+  .bottom-nav .nav-item svg {
+    color: var(--nav-fg-desktop);
+    fill: currentColor;
+    stroke: currentColor;
+  }
+
+  /* Active: hervorgehoben (z. B. in Primärfarbe mit weißer Schrift) */
+  .bottom-nav .nav-item.active {
+    background: var(--primary-color, #0d6efd);
+    color: #ffffff;
+    border-radius: .5rem;
+  }
+  .bottom-nav .nav-item.active::after {
+    display: none; /* die Unterstreichung nur mobil */
+  }
+}
+
+/* Hover/Focus nur auf Maus-Geräten (Touch bleibt „ruhig“) */
+@media (hover: hover) and (pointer: fine) {
+  .bottom-nav .nav-item:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
+
+  
+  .bottom-nav .nav-item:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+
+/* === COLOR FIX — Einheitlich auf allen Breakpoints: dunkelblau + weiß === */
+/* Ersetzt deinen gesamten geposteten Block */
+
+/* Brand-Farben (passe #1E1BDF gern auf deinen genauen Blauton an) */
+:root {
+  --brand-blue: #2C3E50;                /* Hintergrund */
+  --nav-bg: var(--brand-blue);
+  --nav-fg: #FFFFFF;                    /* Text & Icons */
+  --nav-fg-muted: rgba(255,255,255,.78);
+  --nav-hover-bg: rgba(255,255,255,.08);
+  --nav-active-bg: rgba(255,255,255,.16);
+  --nav-divider: rgba(255,255,255,.10);
+}
+
+/* Basis: durchgängig dunkelblau + weiß */
+.bottom-nav {
+  background: var(--nav-bg) !important;
+  color: var(--nav-fg) !important;
+  border-top: 1px solid var(--nav-divider);
+}
+
+/* Text/Icon erben Farbe; SVGs mit currentColor einfärben */
+.bottom-nav .nav-item,
+.bottom-nav .nav-item i,
+.bottom-nav .nav-item span {
+  color: var(--nav-fg) !important;
+}
+.bottom-nav .nav-item svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+/* Inaktive Items leicht abgeschwächt */
+.bottom-nav .nav-item:not(.active) {
+  color: var(--nav-fg-muted) !important;
+}
+
+/* Interaktion: Hover & Active (auf dunklem Blau dezent aufgehellt) */
+.bottom-nav .nav-item {
+  background: transparent;
+}
+.bottom-nav .nav-item:hover {
+  background: var(--nav-hover-bg);
+}
+.bottom-nav .nav-item.active {
+  background: var(--nav-active-bg) !important;
+  color: var(--nav-fg) !important;
+  border-radius: .5rem;
+}
+
+/* Falls zuvor ein mobiler Unterstreichungs-Indikator aktiv war: deaktivieren */
+.bottom-nav .nav-item.active::after { display: none; }
+
+/* Tastaturbedienung: gut sichtbarer Fokus (einmalig definiert) */
+@media (hover: hover) and (pointer: fine) {
+  .bottom-nav .nav-item:focus-visible {
+    outline: 2px solid #FFFFFF;
+    outline-offset: 2px;
+  }
 }

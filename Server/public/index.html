@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="css/responsive.css">
     
     <!-- Font Awesome für Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -24,16 +24,15 @@
             <div class="header-content">
                 <div class="logo-section">
                     <div class="logo">
-                        <i class="fas fa-robot"></i>
-                        <span>AutoMart</span>
+                        <img class="Roboter" src="images/AutoMart.jpg" width="100px" height="100px" >
                     </div>
                 </div>
                 <div class="location-selector">
                     <i class="fas fa-home"></i>
+                    <!--Hinzufügen der Auswählbaren Märkte-->
                     <select id="location-select">
-                        <option value="markt-xy">Markt XY - Gotthilf-Bayh Str X</option>
-                        <option value="markt-a">Markt A - Hauptstraße 123</option>
-                        <option value="markt-b">Markt B - Bahnhofstraße 456</option>
+                        <option value="locker-001">Markt A - Johannesstraße 2 </option> 
+                        <option value="locker-002">Markt B - Hauptstraße in Wehr5</option>
                     </select>
                     <i class="fas fa-chevron-down"></i>
                 </div>
@@ -67,78 +66,70 @@
             </div>
 
             <!-- Products Page -->
-            <div class="page" id="products-page">
-                <div class="section" id="mqtt-product-order">
-  <h2>Produkte auswählen und bestellen</h2>
-  <form id="mqtt-product-form">
-    <div class="product-grid">
+          <div class="page" id="products-page">
+            <div class="section" id="mqtt-product-order">
+              <h2>Produkte auswählen und bestellen</h2>
+              <form id="mqtt-product-form">
+                <div class="product-grid">
       
-      <!-- Produktkarten -->
-      <div class="product-card">
-        <img src="images/Dr_Oetker_La_Mia_Grande_Salame_Piccante.png" alt="Tiefkühlpizza">
-        <h3>Tiefkühlpizza</h3>
-        <p>2,99 €</p>
-        <input type="number" min="0" value="0" data-product="Tiefkühlpizza">
-      </div>
+                <!-- Produktkarten -->
+                  <div class="product-card">
+                  <img src="images/Dr_Oetker_La_Mia_Grande_Salame_Piccante.png" alt="Tiefkühlpizza">
+                  <h3>Tiefkühlpizza</h3>
+                  <p>2,99 €</p>
+                  <input type="number" min="0" value="0" data-product="Tiefkühlpizza">
+                  </div>
 
-      <div class="product-card">
-        <img src="images/banane.jpg.png" alt="Bananen">
-        <h3>Bananen</h3>
-        <p>1,49 €/kg</p>
-        <input type="number" min="0" value="0" data-product="Bananen">
-      </div>
+                  <div class="product-card">
+                  <img src="images/banane.jpg.png" alt="Bananen">
+                  <h3>Bananen</h3>
+                  <p>1,49 €/kg</p>
+                  <input type="number" min="0" value="0" data-product="Bananen">
+                  </div>
 
-      <div class="product-card">
-        <img src="images/Knoppers.png" alt="Knoppers">
-        <h3>Knoppers</h3>
-        <p>1,69 €</p>
-        <input type="number" min="0" value="0" data-product="Knoppers">
-      </div>
+                  <div class="product-card">
+                  <img src="images/Knoppers.png" alt="Knoppers">
+                  <h3>Knoppers</h3>
+                  <p>1,69 €</p>
+                  <input type="number" min="0" value="0" data-product="Knoppers">
+                  </div>
 
-      <div class="product-card">
-        <img src="images/Duschdas_Duschgel.png" alt="Duschdas Duschgel">
-        <h3>Duschdas Duschgel</h3>
-        <p>0,99 €</p>
-        <input type="number" min="0" value="0" data-product="Duschdas Duschgel">
-      </div>
+                  <div class="product-card">
+                  <img src="images/Duschdas_Duschgel.png" alt="Duschdas Duschgel">
+                  <h3>Duschdas Duschgel</h3>
+                  <p>0,99 €</p>
+                  <input type="number" min="0" value="0" data-product="Duschdas Duschgel">
+                  </div>
       
-      <div class="product-card">
-        <img src="images/Desperados.png" alt="Desperados Beer">
-        <h3>Desperados Beer</h3>
-        <p>4,99 €</p>
-        <input type="number" min="0" value="0" data-product="Desperados Beer">
-      </div>
+                  <div class="product-card">
+                  <img src="images/Desperados.png" alt="Desperados Beer">
+                  <h3>Desperados Beer</h3>
+                  <p>4,99 €</p>
+                  <input type="number" min="0" value="0" data-product="Desperados Beer">
+                  </div>
 
-      <div class="product-card">
-        <img src="images/Pringles.png" alt="Pringles Chips">
-        <h3>Pringles Chips</h3>
-        <p>1,89 €</p>
-        <input type="number" min="0" value="0" data-product="Pringles Chips">
-      </div>
+                  <div class="product-card">
+                  <img src="images/Pringles.png" alt="Pringles Chips">
+                  <h3>Pringles Chips</h3>
+                  <p>1,89 €</p>
+                  <input type="number" min="0" value="0" data-product="Pringles Chips">
+                   </div>
 
-   </div>
+                </div>
 
-    <!--Definition der Details-->
-    <div class="order-details">
-      
-      <label for="locker-id">Abholschrank (lockerId):</label>
-      <select id="locker-id" required>
-        <option value="locker-001">Tür 1</option>
-        <option value="locker-002">Tür 2</option>
-      </select>
-
-      <button type="submit" class="btn-primary">Bestellung absenden</button>
-    </div>
-  </form>
-
-
-  <div id="mqtt-order-response" style="margin-top:1rem; color:#2c3e50;"></div>
-  </div>
+                <!--Definition der Details-->
+                <div class="order-details">
+                <button type="submit" class="btn-primary">Bestellung absenden</button>
+                </div>
+                </form>
+                
+                <div id="mqtt-order-response" style="margin-top:1rem; color:#2c3e50;"></div>
+                </div>
 
                 <div class="products-list" id="products-list">
                     <!-- Produktliste wird dynamisch geladen -->
                 </div>
-            </div>
+                </div>
 
             <!-- Cart Page -->
             <div class="page" id="cart-page">
@@ -324,7 +315,7 @@
   </div>
 
 
-    <!-- JavaScript -->
+    <!-- JavaScript, aktuell teilweise ohne Funktion -->
     <script src="js/config.js"></script>
     <script src="js/api.js"></script>
     <script src="js/cart.js"></script>
@@ -333,7 +324,7 @@
     <script src="js/app.js"></script>
    
 
-<!--MQTT Nachricht -->
+    <!--MQTT Nachricht an Backend-->
     <script>
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("mqtt-product-form");
@@ -344,18 +335,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const products = [];
     form.querySelectorAll("input[type='number']").forEach((input) => {
       const quantity = parseInt(input.value);
-      if (quantity > 0) {
+      if (quantity > 0 ) {
         products.push({ name: input.dataset.product, quantity });
       }
-    });
-
+    }
+  );
     if (products.length === 0) {
       responseBox.textContent = "⚠️ Bitte mindestens ein Produkt auswählen.";
-      return;
-    }
-
-    const lockerId = document.getElementById("locker-id").value.trim();
-    const orderId = document.getElementById("locker-id").value.trim();
+      return;  
+    } 
+       const lockerId = document.getElementById("location-select").value.trim();
+       const orderId = document.getElementById("location-select").value.trim();
 
     responseBox.textContent = "⏳ Bestellung wird gesendet...";
 
@@ -367,7 +357,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const data = await res.json();
-      responseBox.textContent = `✅ Bestellung gesendet: ${JSON.stringify(data)}`;
+      //responseBox.textContent = `✅ Bestellung gesendet: ${JSON.stringify(data)}`;
+      responseBox.textContent = `✅ Bestellung gesendet.`;
     } catch (err) {
       console.error(err);
       responseBox.textContent = "❌ Fehler beim Senden der Bestellung.";
