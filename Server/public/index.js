@@ -26,17 +26,25 @@ app.post('/order/complete', (req, res) => {
   console.log("📌 POST /order/complete aufgerufen");
   console.log("Body:", req.body);
 
-  const { orderId, lockerId, product } = req.body;
+  const { orderId, lockerId, products } = req.body;
 
-  const message = JSON.stringify({ cmd: "open", orderId, product, ts: Date.now() });
+  const message = JSON.stringify({
+    cmd: "open",
+    orderId,
+    products, // ← mehrere Produkte mit Menge
+    ts: Date.now()
+  });
+
   const topic = `locker/${lockerId}/commands`;
 
-  if (client) {
+  if (client && client.connected) {
     client.publish(topic, message, { qos: 1 });
     console.log(`📡 MQTT Nachricht gesendet: ${message}`);
+  } else {
+    console.error("❌ MQTT nicht verbunden!");
   }
 
-  res.json({ status: "ok", orderId, lockerId, product });
+  res.json({ status: "ok", orderId, lockerId, products });
 });
 
 // 🔹 Server starten

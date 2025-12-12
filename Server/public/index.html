@@ -1,33 +1,380 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Smart Locker Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoMart - Vollautomatisierter Supermarkt</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Font Awesome für Icons -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h2>Mini-Shop</h2>
-  <select id="product">
-    <option value="snack">Snack (2€)</option>
-    <option value="drink">Getränk (3€)</option>
-  </select>
-  <button id="buyBtn">Jetzt kaufen</button>
-  <pre id="output"></pre>
+    <!-- App Container -->
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">
+                        <img class="Roboter" src="images/AutoMart.jpg" width="100px" height="100px" >
+                    </div>
+                </div>
+                <div class="location-selector">
+                    <i class="fas fa-home"></i>
+                   <!-- Hinzufügen der Auswählbaren Märkte-->
+                    <select id="location-select">
+                          <option value="locker-001">Markt A - Johannesstraße 2 (open)</option> 
+                          <option value="locker-002">Markt B - Hauptstraße in Wehr5 (close)</option>
+                    </select>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="header-actions">
+                    <div class="cart-icon" id="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <!-- Warenkorb Couter, Ändern der Menge-->
+                        <span class="cart-count" id="cart-count">0</span>
+                    </div>
+                    <div class="user-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-  <script>
-    document.getElementById("buyBtn").addEventListener("click", async () => {
-      const product = document.getElementById("product").value;
-      const resp = await fetch("http://localhost:3000/order/complete", {
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <!-- Home Page -->
+            <div class="page active" id="home-page">
+                <div class="search-bar">
+                    <input type="text" placeholder="Suchen..." id="search-input">
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <div class="section">
+                    <h2>Top Angebote</h2>
+                    <div class="products-grid" id="featured-products">
+                        <!-- Produkte werden dynamisch geladen -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Page -->
+          <div class="page" id="products-page">
+            <div class="section" id="mqtt-product-order">
+              <h2>Produkte auswählen und bestellen</h2>
+              <form id="mqtt-product-form">
+                <div class="product-grid">
+      
+                <!-- Produktkarten -->
+                  <div class="product-card">
+                  <img src="images/Knoppers.png" alt="Knoppers">
+                  <h3>Knoppers</h3>
+                  <p>1,69 €</p>
+                  <input type="number" min="0" value="0" data-product="Knoppers">
+                  </div>
+
+                  <div class="product-card">
+                  <img src="images/Ferreo.jpg" alt="Weihnachts-Minis">
+                  <h3>Kinder Weihnachts-Minis</h3>
+                  <p>4,29 €/kg</p>
+                  <input type="number" min="0" value="0" data-product="Weihnachts-Minis">
+                  </div>
+
+                  <div class="product-card">
+                  <img src="images/Carlsberg Premium Lager Beer.jpg" alt="lager-beer">
+                  <h3>Carlsberg Lager Beer</h3>
+                  <p>1,08 €</p>
+                  <input type="number" min="0" value="0" data-product="lager-beer">
+                  </div>
+
+                  <div class="product-card">
+                  <img src="images/spkulatius.webp" alt="Spekulatius">
+                  <h3>Spekulatius</h3>
+                  <p>1,69 €</p>
+                  <input type="number" min="0" value="0" data-product="Duschdas Duschgel">
+                  </div>
+      <!--                  <div class="product-card">
+                  <img src="images/Desperados.png" alt="Desperados Beer">
+                  <h3>Desperados Beer</h3>
+                  <p>4,99 €</p>
+                  <input type="number" min="0" value="0" data-product="Desperados Beer">
+                  </div>
+
+                  <div class="product-card">
+                  <img src="images/Pringles.png" alt="Pringles Chips">
+                  <h3>Pringles Chips</h3>
+                  <p>1,89 €</p>
+                  <input type="number" min="0" value="0" data-product="Pringles Chips">
+                   </div>
+    -->
+
+                </div>
+
+                <!--Definition der Details-->
+                <div class="order-details">
+                <button type="submit" class="btn-primary">Bestellung absenden</button>
+                </div>
+                </form>
+                
+                <div id="mqtt-order-response" style="margin-top:1rem; color:#2c3e50;"></div>
+                </div>
+
+                <div class="products-list" id="products-list">
+                    <!-- Produktliste wird dynamisch geladen -->
+                </div>
+                </div>
+
+            <!-- Cart Page -->
+            <div class="page" id="cart-page">
+                <h2>Warenkorb</h2>
+                <div class="cart-items" id="cart-items">
+                    <!-- Warenkorb-Items werden dynamisch geladen -->
+                </div>
+                <div class="cart-summary">
+                    <div class="total-price">
+                        <span>Zwischensumme: </span>
+                        <span id="total-price">0,00€</span>
+                    </div>
+                    <button class="btn-primary btn-checkout" id="checkout-btn">Zur Kasse</button>
+                </div>
+            </div>
+
+            <!-- Checkout Page -->
+            <div class="page" id="checkout-page">
+                <h2>Bestellung abschließen</h2>
+                
+                <div class="checkout-section">
+                    <h3>Abholstation</h3>
+                    <div class="pickup-info">
+                        <div class="station-info">
+                            <strong id="pickup-station">Markt XY - Gotthilf-Bayh St X</strong>
+                            <p>Name: <span id="customer-name">Testbenutzer 1</span></p>
+                            <p>Timeslot: 
+                                <span id="time-slot">15:00 - 16:00 Uhr</span>
+                                <button class="btn-secondary" id="change-time">Ändern</button>
+                            </p>
+                        </div>
+                        <button class="btn-secondary" id="change-pickup">Abholpunkt</button>
+                    </div>
+                    
+                    <!-- Vereinfachte Karte -->
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Karte wird geladen...</span>
+                    </div>
+                </div>
+
+                <div class="checkout-section">
+                    <h3>Bezahlung</h3>
+                    <div class="payment-method">
+                        <p>Bezahlen mit Bankkonto 355</p>
+                        <button class="btn-secondary" id="change-payment">Ändern</button>
+                    </div>
+                </div>
+
+                <div class="checkout-summary">
+                    <div class="total-amount">
+                        <span>Zwischensumme: </span>
+                        <span id="checkout-total">0,00€</span>
+                    </div>
+                    <button class="btn-primary btn-purchase" id="purchase-btn">Jetzt kaufen</button>
+                </div>
+            </div>
+
+            <!-- Orders Page -->
+            <div class="page" id="orders-page">
+                <h2>Bestellungen</h2>
+                <div class="orders-list" id="orders-list">
+                    <!-- Bestellungen werden dynamisch geladen -->
+                </div>
+            </div>
+
+            <!-- Account Page -->
+            <div class="page" id="account-page">
+                <h2>Benutzerkonto</h2>
+                
+                <div class="account-section">
+                    <h3>Dein Konto</h3>
+                    <div class="account-actions">
+                        <button class="btn-primary" id="login-btn">Anmelden</button>
+                        <button class="btn-secondary" id="register-btn">Registrieren</button>
+                    </div>
+                </div>
+
+                <div class="account-section">
+                    <h3>Einstellungen</h3>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <i class="fas fa-flag"></i>
+                            <span>Land</span>
+                            <span class="setting-value">Deutschland</span>
+                        </div>
+                        <div class="setting-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Ortungsdienste</span>
+                        </div>
+                        <div class="setting-item">
+                            <i class="fas fa-language"></i>
+                            <span>Sprache</span>
+                        </div>
+                        <div class="setting-item">
+                            <i class="fas fa-bell"></i>
+                            <span>Benachrichtigungen</span>
+                        </div>
+                        <div class="setting-item">
+                            <i class="fas fa-database"></i>
+                            <span>Daten</span>
+                        </div>
+                        <div class="setting-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Rechtliches und Privatsphäre</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="account-section">
+                    <h3>Gib uns Feedback!</h3>
+                    <button class="btn-secondary">Eine Bewertung abgeben</button>
+                </div>
+            </div>
+
+            <!-- Pickup Page -->
+            <div class="page" id="pickup-page">
+                <h2>Abholung</h2>
+                
+                <div class="pickup-status">
+                    <div class="station-details">
+                        <h3>Abholstation: <span id="pickup-station-name">Markt XY - Gotthilf-Bayh St X</span></h3>
+                        <p>Name: <span id="pickup-customer">Testbenutzer 1</span></p>
+                        <p>Bestellnummer: <span id="order-id">ID 00021221</span></p>
+                        <div class="pickup-time">
+                            <span>Verbleibende Zeit zur Abholung:</span>
+                            <div class="countdown" id="countdown">50 min 59 sec</div>
+                            <button class="btn-secondary" id="extend-time">Time Slot Verlängern</button>
+                        </div>
+                    </div>
+                    
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Standort anzeigen</span>
+                    </div>
+                    
+                    <div class="pickup-summary">
+                        <div class="total-amount">
+                            <span>Zwischensumme: </span>
+                            <span id="pickup-total">24,99€</span>
+                        </div>
+                        <button class="btn-primary btn-open-pickup" id="open-pickup-btn">Öffnen zur Abholung</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>Start</span>
+            </button>
+            <button class="nav-item" data-page="products">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Bestellen</span>
+            </button>
+            <button class="nav-item" data-page="home">
+                <i class="fas fa-tags"></i>
+                <span>Angebote</span>
+            </button>
+            <button class="nav-item" data-page="orders">
+                <i class="fas fa-receipt"></i>
+                <span>Einkäufe</span>
+            </button>
+        </nav>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay hidden" id="loading-overlay">
+            <div class="spinner"></div>
+            <p>Laden...</p>
+        </div>
+
+        <!-- Success Modal -->
+        <div class="modal hidden" id="success-modal">
+            <div class="modal-content">
+                <h3>Bestellung erfolgreich!</h3>
+                <p>Ihre Bestellung wurde erfolgreich aufgegeben.</p>
+                <p>Bestellnummer: <span id="success-order-id"></span></p>
+                <button class="btn-primary" id="success-ok">OK</button>
+            </div>
+        </div>
+  </div>
+
+
+    <!-- JavaScript, aktuell teilweise ohne Funktion -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+   
+
+    <!--MQTT Nachricht an Backend-->
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("mqtt-product-form");
+  const responseBox = document.getElementById("mqtt-order-response");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const products = [];
+    form.querySelectorAll("input[type='number']").forEach((input) => {
+      const quantity = parseInt(input.value);
+      if (quantity > 0 ) {
+        products.push({ name: input.dataset.product, quantity });
+      }
+    }
+  );
+    if (products.length === 0) {
+      responseBox.textContent = "⚠️ Bitte mindestens ein Produkt auswählen.";
+      return;  
+    } 
+       
+    
+       const lockerId = document.getElementById("location-select").value.trim();
+       const orderId = document.getElementById("location-select").value.trim();
+
+    responseBox.textContent = "⏳ Bestellung wird gesendet...";
+
+    try {
+      const res = await fetch("http://localhost:3000/order/complete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          orderId: "ORD-" + Date.now(),
-          lockerId: "locker-001",
-          product
-        })
+        body: JSON.stringify({ orderId, lockerId, products })
       });
-      const data = await resp.json();
-      document.getElementById("output").textContent = JSON.stringify(data, null, 2);
-    });
-  </script>
+
+      const data = await res.json();
+      //responseBox.textContent = `✅ Bestellung gesendet: ${JSON.stringify(data)}`;
+      responseBox.textContent = `✅ Bestellung gesendet.`;
+    } catch (err) {
+      console.error(err);
+      responseBox.textContent = "❌ Fehler beim Senden der Bestellung.";
+    }
+  });
+});
+    </script>
+
+    <!-- Counter für Warenkorb-->
+    <script>
+        const CartCounter = document.getElementById("cart-count");
+        
+
+    </script>
 </body>
 </html>

@@ -4,8 +4,18 @@
   "description": "Node.js für AutoMart Projekt",
   "main": "index.js",
   "scripts": {
+    "dev": "live-server --port=3000 --host=localhost --open=/index.html",
+    "start": "live-server --port=3000 --host=0.0.0.0 --open=/index.html",
+    "build": "echo 'Build process - files are ready for deployment'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "automart",
+    "webshop",
+    "supermarkt",
+    "iot",
+    "mqtt"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Mightyrey/AutoMart.git"
