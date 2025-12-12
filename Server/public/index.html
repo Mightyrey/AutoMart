@@ -29,16 +29,17 @@
                 </div>
                 <div class="location-selector">
                     <i class="fas fa-home"></i>
-                    <!--Hinzufügen der Auswählbaren Märkte-->
+                   <!-- Hinzufügen der Auswählbaren Märkte-->
                     <select id="location-select">
-                        <option value="locker-001">Markt A - Johannesstraße 2 </option> 
-                        <option value="locker-002">Markt B - Hauptstraße in Wehr5</option>
+                          <option value="locker-001">Markt A - Johannesstraße 2 (open)</option> 
+                          <option value="locker-002">Markt B - Hauptstraße in Wehr5 (close)</option>
                     </select>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="header-actions">
                     <div class="cart-icon" id="cart-icon">
                         <i class="fas fa-shopping-cart"></i>
+                        <!-- Warenkorb Couter, Ändern der Menge-->
                         <span class="cart-count" id="cart-count">0</span>
                     </div>
                     <div class="user-icon">
@@ -74,20 +75,6 @@
       
                 <!-- Produktkarten -->
                   <div class="product-card">
-                  <img src="images/Dr_Oetker_La_Mia_Grande_Salame_Piccante.png" alt="Tiefkühlpizza">
-                  <h3>Tiefkühlpizza</h3>
-                  <p>2,99 €</p>
-                  <input type="number" min="0" value="0" data-product="Tiefkühlpizza">
-                  </div>
-
-                  <div class="product-card">
-                  <img src="images/banane.jpg.png" alt="Bananen">
-                  <h3>Bananen</h3>
-                  <p>1,49 €/kg</p>
-                  <input type="number" min="0" value="0" data-product="Bananen">
-                  </div>
-
-                  <div class="product-card">
                   <img src="images/Knoppers.png" alt="Knoppers">
                   <h3>Knoppers</h3>
                   <p>1,69 €</p>
@@ -95,13 +82,26 @@
                   </div>
 
                   <div class="product-card">
-                  <img src="images/Duschdas_Duschgel.png" alt="Duschdas Duschgel">
-                  <h3>Duschdas Duschgel</h3>
-                  <p>0,99 €</p>
+                  <img src="images/Ferreo.jpg" alt="Weihnachts-Minis">
+                  <h3>Kinder Weihnachts-Minis</h3>
+                  <p>4,29 €/kg</p>
+                  <input type="number" min="0" value="0" data-product="Weihnachts-Minis">
+                  </div>
+
+                  <div class="product-card">
+                  <img src="images/Carlsberg Premium Lager Beer.jpg" alt="lager-beer">
+                  <h3>Carlsberg Lager Beer</h3>
+                  <p>1,08 €</p>
+                  <input type="number" min="0" value="0" data-product="lager-beer">
+                  </div>
+
+                  <div class="product-card">
+                  <img src="images/spkulatius.webp" alt="Spekulatius">
+                  <h3>Spekulatius</h3>
+                  <p>1,69 €</p>
                   <input type="number" min="0" value="0" data-product="Duschdas Duschgel">
                   </div>
-      
-                  <div class="product-card">
+      <!--                  <div class="product-card">
                   <img src="images/Desperados.png" alt="Desperados Beer">
                   <h3>Desperados Beer</h3>
                   <p>4,99 €</p>
@@ -114,6 +114,7 @@
                   <p>1,89 €</p>
                   <input type="number" min="0" value="0" data-product="Pringles Chips">
                    </div>
+    -->
 
                 </div>
 
@@ -344,6 +345,8 @@ document.addEventListener("DOMContentLoaded", () => {
       responseBox.textContent = "⚠️ Bitte mindestens ein Produkt auswählen.";
       return;  
     } 
+       
+    
        const lockerId = document.getElementById("location-select").value.trim();
        const orderId = document.getElementById("location-select").value.trim();
 
@@ -367,5 +370,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
     </script>
 
+    <!-- Counter für Warenkorb-->
+    <script>
+        const CartCounter = document.getElementById("cart-count");
+        
+
+    </script>
 </body>
 </html>
